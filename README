@@ -1,0 +1,3 @@
+Code for communicating with a Peggy Display board: http://www.evilmadscientist.com/article.php/peggy
+
+This has proved useful across several projects, so I've pulled out the code into its own little library. I intend to add to this as I work on further projects.

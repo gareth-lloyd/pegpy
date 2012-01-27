@@ -19,27 +19,27 @@ uint8_t x_byte = 0;
 typedef void (* writeFunction) (uint8_t);
 writeFunction currentOp;
 
-union mix_t {
+union {
   uint32_t row; 
-  uint8_t row_bytes[4];
-} mix;
+  uint8_t rowBytes[4];
+} rowFacade;
 
 void setByte(uint8_t c) {
-  mix.row = frame.buffer[y];
-  mix.row_bytes[x_byte] = c;
-  frame.buffer[y] = mix.row;
+  rowFacade.row = frame.buffer[y];
+  rowFacade.rowBytes[x_byte] = c;
+  frame.buffer[y] = rowFacade.row;
 }
 
 void addByte(uint8_t c) {
-  mix.row = frame.buffer[y];
-  mix.row_bytes[x_byte] |= c;
-  frame.buffer[y] = mix.row;
+  rowFacade.row = frame.buffer[y];
+  rowFacade.rowBytes[x_byte] |= c;
+  frame.buffer[y] = rowFacade.row;
 }
 
 void clearByte(uint8_t c) {
-  mix.row = frame.buffer[y];
-  mix.row_bytes[x_byte] &= ~c;
-  frame.buffer[y] = mix.row;
+  rowFacade.row = frame.buffer[y];
+  rowFacade.rowBytes[x_byte] &= ~c;
+  frame.buffer[y] = rowFacade.row;
 }
 
 void setup() {
@@ -55,7 +55,7 @@ void setup() {
 
   // Call the display's initiatiion routine:
   frame.HardwareInit();
-  
+
   SPI.setBitOrder(LSBFIRST);
 }
 
